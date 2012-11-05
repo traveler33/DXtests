@@ -6,16 +6,15 @@ using System.Web.UI;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.Data;
-using System.Collections;
 
-namespace GetSetClientText
+namespace npDropDownEdit
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class clsDropDownEdit : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                //EmployeeSessionProvider.Restore();
+                EmployeeSessionProvider.Restore();
             ASPxWebControl.RegisterBaseScript(Page);
         }
 
@@ -26,8 +25,8 @@ namespace GetSetClientText
             object[] keyValues = new object[grid.VisibleRowCount];
             for (int i = 0; i < grid.VisibleRowCount; i++)
             {
-                employeeNames[i] = grid.GetRowValues(i, "Format") + " " + grid.GetRowValues(i, "Description");
-                keyValues[i] = grid.GetRowValues(i, "DateFormatID");
+                employeeNames[i] = grid.GetRowValues(i, "FirstName") + " " + grid.GetRowValues(i, "LastName");
+                keyValues[i] = grid.GetRowValues(i, "ID");
             }
             e.Properties["cpEmployeeNames"] = employeeNames;
             e.Properties["cpKeyValues"] = keyValues;
@@ -36,7 +35,7 @@ namespace GetSetClientText
         protected void GridView_RowInserting(object sender, ASPxDataInsertingEventArgs e)
         {
             ASPxGridView grid = sender as ASPxGridView;
-            //e.NewValues["ID"] = EmployeeSessionProvider.GenerateNewID();
+            e.NewValues["ID"] = EmployeeSessionProvider.GenerateNewID();
         }
 
         protected void GridView_AfterPerformCallback(object sender, ASPxGridViewAfterPerformCallbackEventArgs e)
@@ -58,52 +57,4 @@ namespace GetSetClientText
         }
 
     }
-
-    //public class EffectiveDt
-    //{
-    //    public static ArrayList al = new ArrayList();
-    //    public void EffectiveDt()
-    //    {
-    //        ADate aDate1 = new ADate();
-    //        aDate1.EffectiveDate = Convert.ToDateTime("2012-10-16");
-
-    //        al.Add(aDate1);
-    //        ADate aDate2 = new ADate();
-    //        aDate2.EffectiveDate = Convert.ToDateTime("2011-12-26");
-    //        aDate2.ExpiryDate = Convert.ToDateTime("2012-10-15");
-    //        al.Add(aDate2);
-    //        ADate aDate3 = new ADate();
-    //        aDate3.EffectiveDate = Convert.ToDateTime("2010-2-23");
-    //        aDate3.ExpiryDate = Convert.ToDateTime("2011-12-25");
-    //        al.Add(aDate3);
-    //    }
-    //    public static ICollection Select()
-    //    {
-    //        return al;
-    //    }
-
-    //    public void Update()
-    //    {
-    //        int ii;
-    //        ii = al.
-    //    }
-    //}
-
-    //public class ADate
-    //{
-    //    private DateTime effectiveDate;
-    //    public DateTime EffectiveDate
-    //    {
-    //        get { return effectiveDate; }
-    //        set { effectiveDate = value; }
-    //    }
-
-    //    private DateTime expiryDate;
-    //    public DateTime ExpiryDate
-    //    {
-    //        get { return expiryDate; }
-    //        set { expiryDate = value; }
-    //    }
-
-    //}
 }
